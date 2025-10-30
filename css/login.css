@@ -8,3 +8,9 @@
     width: 100%;
     margin-top: 20px;
 }
+.login_title{
+    font-family: "Kanit", sans-serif;
+    font-size: 500;
+    font-weight: 700;
+    font-style: italic;
+}
