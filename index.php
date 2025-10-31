@@ -1,29 +1,41 @@
-<?php
-    $title = 'login';
-    require_once('php/header.php');
 
+<?php 
+    session_start();
+    if(!isset($_SESSION['username'])){
+        header('location: login.php');
+    }
+
+    if(isset($_GET['logout'])){
+        session_destroy();
+        unset($_SESSION['username']);
+        header('location: login.php');
+    }
 ?>
 
-<body style="background-color:#27F5DA">
-       
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link ref="stylesheet" href="style.css">
+    <title>HOMEIE</title>
+</head>
+<body>
     
-    
-    <center><img src="logo_pao.png" width="450"></center>
-    <form>
-    
-    <div class="login_ip">
-    <center>
-    <div class="login_title"><h1>ยืมคืนอุปกรณ์การแพทย์และอุปกรณ์เครื่องช่วยความพิการ</h1></div><br>
-    </center>
-    <input type="text" placeholder="USERNAME" name="username">
-        <input type="password" placeholder="PASSWORD" name="password"> 
-    </div>
-    
-    <div class="login_btn">
-  <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-        LOG IN
-        </button>
-    </div>
-    </form>
+    <?php if(isset($_SESSION['success'])): ?>
+        <div class="success">
+            <h3>
+                <?php
+                    echo $_SESSION['success'];
+                    unset($_SESSION['success']);
+                ?>
+            </h3>
+        </div>
+    <?php endif; ?>
 
+    <?php if (isset($_SESSION['username'])): ?>
+        <p>MTFK welcome to <?php echo $_SESSION['username']; ?></p>
+        <p><a href="index.php?logout=1" style="color: red;">LOGOUT</a></p>
+    <?php endif; ?>
 </body>
+</html>
